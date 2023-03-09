@@ -1,0 +1,66 @@
+﻿<Window x:Class="Hotel.Login.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        
+xmlns:local="clr-namespace:Hotel.Login"
+        mc:Ignorable="d"
+        Title="Login" Height="400
+        " Width="688">
+    
+    <Grid Margin="-16,-2,0,0">
+        <Border
+            BorderBrush="#FF207877"
+            BorderThickness="4"
+            VerticalAlignment="Top">
+        </Border>
+
+        <Label Content="Login" HorizontalAlignment="Left" Margin="41,37,0,0" VerticalAlignment="Top" Width="116" FontSize="24" Background="#00000000" AutomationProperties.IsRequiredForForm="True" Foreground="#FF4B767D" FontWeight="Bold"/>
+        <Label x:Name="usernam_label" Content="Username" HorizontalAlignment="Left" Margin="213,121,0,0" VerticalAlignment="Top" Foreground="#FF113E45" FontSize="12"/>
+        <TextBox  GotFocus="OnGotFocusHandlerUserName" x:Name="username_text" Padding="42,7,24,9" HorizontalAlignment="Center" Margin="0,149,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="272" Height="30" AutomationProperties.ItemType="password" Text="username" SelectionOpacity="3" Foreground="#FF5C7D85" FontSize="10" >
+            <TextBox.Background>
+                <ImageBrush  AlignmentX="Left" ImageSource="/UI/Login/edit.png" Stretch="Uniform" TileMode="FlipX"/>
+            </TextBox.Background>
+        </TextBox>
+        <Label x:Name="password_label" Content="Password" HorizontalAlignment="Left" Margin="215,195,0,0" VerticalAlignment="Top" Foreground="#FF113E45" FontSize="12" />
+        <PasswordBox x:Name="password_txt" GotFocus="OnGotFocusHandlerPassword" Padding="42,7,24,9" HorizontalAlignment="Center" Margin="0,221,0,0" VerticalAlignment="Top" Width="272" Height="30" Password="password" Foreground="#FF5C7D85" FontSize="11">
+            <PasswordBox.Background>
+                <ImageBrush  AlignmentX="Left" ImageSource="/UI/Login/edit.png" Stretch="Uniform" TileMode="FlipX"/>
+            </PasswordBox.Background>
+        </PasswordBox>
+        <Button Content="Sign in" HorizontalAlignment="Center" Margin="0,279,0,0" VerticalAlignment="Top" Height="37" Width="272" Background="#FF4B767D" BorderBrush="#FFC8DBDE" Foreground="#FFE4D6D6" Padding="8,6,7,9" Click="btnSignIn" FontSize="16"/>
+
+
+        <Button Content="Licence" Margin="604,376,0,0" VerticalAlignment="Top" Height="26" Click="show_licence" BorderBrush="#FFECF6F7" Foreground="#FF0C4D56" FontWeight="Bold" FontSize="12" Background="#FFFFFFFC">
+            <Button.Style >
+                <Style TargetType="Button" >
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Black" >
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+
+        <Button Content="-" Margin="612,12,50,0" VerticalAlignment="Top" Foreground="#FF2C2929" Click="minimize_screen" Height="28" FontSize="22" OpacityMask="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}" BorderBrush="#FFFFFFFC" Background="#FFFFFFFC"/>
+        <Button x:Name="btnExsit" Content="X" HorizontalAlignment="Left" Margin="654,12,0,0" VerticalAlignment="Top" Width="47" Foreground="#FF222121" Click="exsit_screen" Height="28" Background="#FFFFFFFC" BorderBrush="#FFFFFFFC" />
+        
+        
+        <TextBlock x:Name="Error_container" HorizontalAlignment="Left" Margin="41,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="244" Width="637" Background="#FFC82A2A" Visibility="Hidden"/>
+        <Label x:Name="Error_Header" Content="Login Failed" Margin="63,134,491,231" Foreground="#FFF9F9F9" FontSize="20" Background="#FFCC2C2C" Visibility="Hidden"/>
+        <Label x:Name="Error_Details" Content="Username or Password is wrong, try again" HorizontalAlignment="Left" Margin="66,179,0,0" VerticalAlignment="Top" Width="386" Foreground="#FFEFEFEF" Background="#FFFF2A0B" Visibility="Hidden"/>
+        <Button x:Name="Error_retryBtn" Content="Retry" HorizontalAlignment="Left" Margin="413,300,0,0" VerticalAlignment="Top" Height="30" Width="92" Foreground="#FFEFEAEA" Background="#FF635F5F" Visibility="Hidden" Click="Error_CancelBtn_Click"/>
+        <Button x:Name="Error_CancelBtn" Content="Cancel" HorizontalAlignment="Left" Margin="517,300,0,0" VerticalAlignment="Top" Height="30" Width="88" Background="#FFF7F7F7" Click="Error_CancelBtn_Click" Visibility="Hidden"/>
+
+
+
+    </Grid>
+
+</Window>

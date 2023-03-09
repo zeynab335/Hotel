@@ -1,0 +1,224 @@
+﻿<Window x:Class="Hotel.FrontEnd.Reservation.Kitchen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        xmlns:local="clr-namespace:Hotel.FrontEnd.Reservation"
+        mc:Ignorable="d"
+        Title="Kitchen" Height="677" Width="1333">
+
+
+    <Grid>
+        <Border
+            BorderBrush="#FF55BC07"
+            BorderThickness="5"
+            VerticalAlignment="Top">
+        </Border>
+        <Label Content="Room Service&#xD;&#xA;" FontSize="30" Margin="30,30,1096,589" />
+
+        <!-- start Header -->
+        <Grid Margin="61,119,10,512" >
+
+
+            <Border x:Name="tasks"
+            BorderBrush="#FFDCDDDB"
+            BorderThickness="2" VerticalAlignment="Top" Margin="-1,42,0,0" Height="3"
+            />
+            <Grid Margin="10,1,1052,1" Width="200">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="97*"/>
+                    <ColumnDefinition Width="103*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Background="White" BorderThickness="0,0,0,3" Margin="0,0,28,0" Name="btnToDo" Click="btnToDo_Click" BorderBrush="#FF05BC19" Height="44" VerticalAlignment="Bottom">TODO*</Button>
+                <Button Background="White" BorderThickness="0,0,0,3" Content="Overview" Name="btnOverview" HorizontalAlignment="Left" Margin="83,0,0,0" Grid.ColumnSpan="2" Width="77" BorderBrush="#FFDCDDDB" Click="btnOverview_Click" />
+
+            </Grid>
+
+
+        </Grid>
+        <Button Content="-" Margin="1244,15,47,0" VerticalAlignment="Top" Foreground="#FF2C2929" Click="minimize_screen" Height="28" FontSize="22" OpacityMask="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}" BorderBrush="#FFFFFFFC" Background="#FFFFFFFC"/>
+        <Button x:Name="btnExsit" Content="X" Margin="1286,15,0,0" VerticalAlignment="Top" Foreground="#FF222121" Click="exsit_screen" Height="28" Background="#FFFFFFFC" BorderBrush="#FFFFFFFC" />
+        <DataGrid x:Name="ReservationGrid" 
+                  Margin="30,209,35,42" SelectionChanged="ReservationGrid_SelectionChanged" Visibility="Hidden"
+        />
+        <!-- end Header -->
+
+        <Grid Margin="12,224,8,42" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="645*"/>
+                <ColumnDefinition Width="668*"/>
+                <ColumnDefinition Width="668*"/>
+
+            </Grid.ColumnDefinitions>
+
+            <!-- start Grid of column 1 -->
+            <Grid Margin="0,0,442,2" Grid.ColumnSpan="2">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"></RowDefinition>
+                    <RowDefinition Height="80"></RowDefinition>
+                    <RowDefinition Height="80"></RowDefinition>
+                    <RowDefinition Height="80"></RowDefinition>
+                    <RowDefinition Height="80"></RowDefinition>
+
+                </Grid.RowDefinitions>
+
+
+                <StackPanel Grid.Row="0" Margin="0,0,18,0">
+                    <Label Content="Name"/>
+                    <WrapPanel>
+                        <TextBox x:Name="firstnameTxt" Width="190" Height="29" Text="First" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" />
+                        <TextBox x:Name="lastnameTxt" Width="211" Text="Last" Foreground="#FF837E7E" Padding="0,4,0,0" FontSize="12" Margin="9,0,0,0"/>
+                    </WrapPanel>
+                </StackPanel>
+
+
+                <StackPanel Grid.Row="1" Margin="0,0,18,0">
+                    <Label Content="Phone number" Width="405"/>
+                    <WrapPanel>
+                        <TextBox x:Name="phoneNumberTxt" Width="405" Height="29" Text="(999)-999-9999" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" />
+                    </WrapPanel>
+                </StackPanel>
+
+                <Grid  Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.ColumnSpan="2"  Margin="213,0,0,0">
+                        <Label Content="Floor"/>
+                        <WrapPanel>
+                            <TextBox x:Name="floorTxt" Width="196" Height="29" Text="Floor #" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" />
+                        </WrapPanel>
+
+
+                    </StackPanel>
+
+                    <StackPanel  Grid.Row ="2">
+                        <Label Content="Room Type"/>
+                        <WrapPanel>
+                            <TextBox x:Name="roomTypeTxt" Width="200" Margin="7,0,0,0" Height="29" Text="Room Type" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" />
+                        </WrapPanel>
+                    </StackPanel>
+
+                </Grid>
+
+                <StackPanel Grid.Row="3" Margin="0,0,18,0"  >
+                    <Label Content="Room #" Width="410"/>
+                    <WrapPanel>
+                        <TextBox x:Name="roomTxt" Width="411" Height="29" Text="Room #" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" />
+                    </WrapPanel>
+                </StackPanel>
+            </Grid>
+            <!-- end Grid of column 1 -->
+
+            <!-- start Grid of column 2 -->
+            <Grid Grid.Column="1" >
+                <Border
+                    BorderBrush="#FFD0D8CB"
+                    BorderThickness="1"
+                    VerticalAlignment="Stretch"
+                    >
+                </Border>
+
+                <Label Content="Todo" BorderBrush="#FFD3D1D1" Margin="8,-16,390,397" Foreground="#FF6E6565" Background="#FFFFFFFC" HorizontalContentAlignment="Center"/>
+
+
+                <Grid Margin="10,40,10,0" >
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"></RowDefinition>
+                        <RowDefinition Height="80"></RowDefinition>
+                        <RowDefinition Height="80"></RowDefinition>
+                        <RowDefinition Height="80"></RowDefinition>
+                        <RowDefinition Height="80"></RowDefinition>
+
+                    </Grid.RowDefinitions>
+
+
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="106*"></ColumnDefinition>
+                        <ColumnDefinition Width="106*"></ColumnDefinition>
+                        <ColumnDefinition Width="117*"></ColumnDefinition>
+                        <ColumnDefinition Width="94*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Breakfast-->
+                    <StackPanel Grid.Column="0" Grid.ColumnSpan="2"  Grid.Row="0" Margin="0,0,1,0">
+                        <Label Content="Breakfast [QTY] "/>
+                        <WrapPanel>
+                            <TextBox x:Name="breakfastTxt" Width="201" Height="29" Text="Breakfast" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" Margin="7,0,0,0" />
+                        </WrapPanel>
+                    </StackPanel>
+
+                    <!-- Lunch -->
+                    <StackPanel Grid.Column="2" Grid.ColumnSpan="2"  Grid.Row="0">
+                        <Label Content="Lunch [QTY] " Width="202"/>
+                        <WrapPanel>
+                            <TextBox x:Name="LunchTxt" Width="195" Height="29" Text="Lunch" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" Margin="11,0,0,0" />
+                        </WrapPanel>
+
+                    </StackPanel>
+
+
+                    <!-- Dinner -->
+                    <StackPanel Grid.Column="0" Grid.ColumnSpan="4"  Grid.Row="1">
+                        <Label Content="Dinner [QTY] " Width="202" HorizontalAlignment="Left"/>
+                        <WrapPanel>
+                            <TextBox x:Name="dinnerTxt" Width="404" Height="29" Text="Dinner" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" Margin="8,0,0,0" />
+                        </WrapPanel>
+
+                    </StackPanel>
+
+
+                    <!-- services -->
+                    <WrapPanel Grid.Column="0" Grid.Row="2" Margin="0,20,106,20" Grid.ColumnSpan="2">
+                        <CheckBox VerticalAlignment="Bottom" Height="20" Width="21" HorizontalAlignment="Right" Padding="13,0,0,0" Checked="CheckBox_Checked" Margin="6,0,0,0"></CheckBox>
+                        <Label VerticalAlignment="Top" Padding="10,1,7,5" Content="Cleaning"/>
+                    </WrapPanel>
+
+                    <WrapPanel Grid.Column="1" Grid.Row="2" Margin="0,20,1,20">
+                        <CheckBox  VerticalAlignment="Bottom" Height="20" Width="21" HorizontalAlignment="Right" Padding="13,0,0,0" Checked="CheckBox_Checked" Margin="6,0,0,0"></CheckBox>
+                        <Label VerticalAlignment="Top" Padding="10,1,7,5" Content="Towels"/>
+                    </WrapPanel>
+
+                    <WrapPanel Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" Margin="0,20,9,20">
+                        <CheckBox  VerticalAlignment="Bottom" Height="20" Width="21" HorizontalAlignment="Right" Padding="13,0,0,0" Checked="CheckBox_Checked" Margin="6,0,0,0"></CheckBox>
+                        <Label VerticalAlignment="Top" Padding="10,1,7,5" Content="Sweetest Surprise"/>
+                    </WrapPanel>
+
+                    <WrapPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Margin="0,20,9,20">
+                        <CheckBox  VerticalAlignment="Bottom" Height="20" Width="21" HorizontalAlignment="Right" Padding="13,0,0,0" Checked="CheckBox_Checked" Margin="6,0,0,0"></CheckBox>
+                        <Label VerticalAlignment="Top" Padding="10,1,7,5" Content=" Food/Supply status ?"/>
+                    </WrapPanel>
+
+
+                    <!-- Change food selection? BTN -->
+                    <Button Content="Change food selection?" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4" Margin="0,6,0,40" Background="#FF05BC19" Click="changeSelectionHandler"></Button>
+
+                </Grid>
+
+            </Grid>
+            <!-- start Grid of column 2 -->
+
+
+            <!-- Start grid column 3 -->
+            <StackPanel Grid.Column="3" >
+                <Label  BorderThickness="0,8,0,0" Margin="0,-35,0,0" Width="419" Foreground="#FF6E6565">On The Line</Label>
+                <ListBox Height="349" Width="410" Margin="0,0,12,0" BorderBrush="#FFB1B4B1" ></ListBox>
+                <Button Content="Update Changes?" Background="#FF05BC19" Height="34" Width="423" Margin="0,16,0,0" Click="udpateChangesHadler"/>
+            </StackPanel>
+
+        </Grid>
+
+
+
+
+    </Grid>
+</Window>
