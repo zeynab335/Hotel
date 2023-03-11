@@ -58,7 +58,7 @@
                     BorderThickness="1" Margin="-6,0,8,-9" Grid.RowSpan="5"
                     />
             <Grid Margin="0,0,442,2" Grid.ColumnSpan="2">
-                
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="80"></RowDefinition>
                     <RowDefinition Height="80"></RowDefinition>
@@ -211,8 +211,29 @@
             <!-- Start grid column 3 -->
             <StackPanel Grid.Column="2" Margin="10,0,0,0" >
                 <Label  BorderThickness="0,8,0,0" Margin="0,-35,0,0" Width="419" Foreground="#FF6E6565">On The Line</Label>
-                <ListBox Height="349" Width="410" Margin="0,0,12,0" BorderBrush="#FFB1B4B1" ></ListBox>
-                <Button Content="Update Changes?" Background="#FF05BC19" Height="34" Width="423" Margin="0,16,0,0" Click="udpateChangesHadler"/>
+                <DataGrid x:Name="OnTheLine_List" AutoGenerateColumns="false" GridLinesVisibility="None" Height="363" Width="410">
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Binding="{Binding room_number}" Width="90" CanUserResize="False">
+                            <DataGridTextColumn.Header>Room #</DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Binding="{Binding room_type}" CanUserResize="False" Width="90">
+                            <DataGridTextColumn.Header>Type</DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Binding="{Binding first_name}" CanUserResize="False" Width="90">
+                            <DataGridTextColumn.Header>Name</DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Binding="{Binding phone_number}" Width="100">
+                            <DataGridTextColumn.Header>Phone</DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button Content="Update Changes?" Background="#FF05BC19" Height="43" Width="410" Click="udpateChangesHadler"/>
+                <!--<ListBox Height="349" Width="410" Margin="0,0,12,0" BorderBrush="#FFB1B4B1" ></ListBox>-->
+
             </StackPanel>
 
         </Grid>

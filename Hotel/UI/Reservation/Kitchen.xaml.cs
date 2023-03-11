@@ -23,17 +23,21 @@ namespace Hotel.FrontEnd.Reservation
     /// </summary>
     public partial class Kitchen : Window
     {
-        //ReservationContext reservationContext;
-        Hotel.Context.Context reservationContext;
+        
+        Hotel.Context.Context KitchenContext;
 
         public Kitchen()
         {
             InitializeComponent();
 
+            KitchenContext = new();
+
             try
             {
                 //reservationContext = new ReservationContext();
-                Hotel.Context.Context reservationContext =  new();
+                string queryString = "Select * from reservation where check_in = '" + "True" + "' AND supply_status='" + "False" + "'";
+
+                OnTheLine_List.ItemsSource = KitchenContext.reservations.FromSqlRaw(queryString).ToList();
 
 
                 //                ReservationGrid.Visibility = Visibility.Collapsed;
@@ -52,14 +56,17 @@ namespace Hotel.FrontEnd.Reservation
         {
            btnToDo.BorderBrush = (new BrushConverter().ConvertFrom("#FF55BC07")) as Brush;
             btnOverview.BorderBrush = (new BrushConverter().ConvertFrom("#FFDBDDD9")) as Brush;
+            OverviewGrid.Visibility = Visibility.Hidden;
+            ToDoGrid.Visibility = Visibility.Visible;
+
             try
             {
-                reservationContext.reservations.Load();
-               
+                //reservationContext.reservations.Load();
+
                 //DbDataSource db = new(reservationContext.reservations);
                 //DataTable ddt = new DataTable(reservationContext.reservations.Local.ToBindingList());
                 //ReservationGrid.ItemsSource = ;
-
+                
 
                 MessageBox.Show("dk");
             }
@@ -76,10 +83,11 @@ namespace Hotel.FrontEnd.Reservation
             btnOverview.BorderBrush = (new BrushConverter().ConvertFrom("#FF55BC07")) as Brush;
 
             // load Reservation
+            
             OverviewGrid.Visibility = Visibility.Visible;
             ToDoGrid.Visibility = Visibility.Hidden;
-            OverviewDataGrid.ItemsSource = reservationContext.reservations.ToList();
-
+            
+            OverviewDataGrid.ItemsSource = KitchenContext.reservations.ToList();
 
         }
         private void minimize_screen(object sender, RoutedEventArgs e)
