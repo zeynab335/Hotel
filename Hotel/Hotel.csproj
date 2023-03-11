@@ -8,7 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="UI\FrontEnd\room.png" />
     <None Remove="UI\Login\edit.png" />
+    <None Remove="UI\Reservation\breakfast.png" />
+    <None Remove="UI\Reservation\Dinner_new_png.png" />
+    <None Remove="UI\Reservation\lunch_new_png.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,10 +22,15 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Twilio" Version="6.2.5" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="UI\FrontEnd\room.png" />
     <Resource Include="UI\Login\edit.png" />
+    <Resource Include="UI\Reservation\breakfast.png" />
+    <Resource Include="UI\Reservation\Dinner_new_png.png" />
+    <Resource Include="UI\Reservation\lunch_new_png.png" />
   </ItemGroup>
 
 </Project>

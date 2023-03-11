@@ -23,9 +23,9 @@
            
          />
 
-
+        
         <Border BorderThickness="2" BorderBrush="#FF007887" HorizontalAlignment="Left" Margin="20,24,0,10" Width="752"/>
-        <Grid Margin="20,8,20,0" Height="430" VerticalAlignment="Top">
+        <Grid Margin="20,8,20,0" Height="430" VerticalAlignment="Top" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -49,7 +49,7 @@
 
             <!-- Row 1 Current Bill column with price -->
             <Label Grid.Row="0" Grid.Column="0" Margin="8,65,12,63" FontSize="18" Grid.RowSpan="4">Current Bill</Label>
-            <Label Name="currentBill_Price"  Grid.Row="2" Grid.Column="1" Margin="4,0,16,62" FontSize="18" Grid.RowSpan="2">$</Label>
+            <Label Name="currentBill_Price"  Grid.Row="2" Grid.Column="1" Margin="4,0,16,62" FontSize="18" Grid.RowSpan="2" Content="$"></Label>
 
 
             <!-- Row 2 Food Bill column with price -->
@@ -92,37 +92,48 @@
             <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,29,16,14">
                 <Label FontSize="18" Width="360" HorizontalAlignment="Left" Margin="20,0,0,0">Payment</Label>
                 <WrapPanel Height="51" Width="709">
-                    <ComboBox Width="238" HorizontalAlignment="Left" Margin="9,0,0,0" Height="40">
-                        <ComboBoxItem>Credit</ComboBoxItem>
+                    <ComboBox Width="238" HorizontalAlignment="Left" Margin="9,0,0,0" Height="40" x:Name="PaymentTypeComb">
+                        <ComboBoxItem >Credit</ComboBoxItem>
                         <ComboBoxItem>Depit</ComboBoxItem>
 
                     </ComboBox>
-                    <TextBox Text="9999 - 9999 - 9999 - 9999"  Width="439" HorizontalAlignment="Left" Height="39" TextChanged="TextBox_TextChanged" VerticalAlignment="Center" Padding="0,8,0,0" Margin="10,0,0,0"/>
+                    <TextBox Text="9999 - 9999 - 9999 - 9999"  Width="439" HorizontalAlignment="Left" Height="39" Name="phoneNComboBox" VerticalAlignment="Center" Padding="0,8,0,0" Margin="10,0,0,0" MouseLeave="phoneNComboBox_Leave"/>
                 </WrapPanel>
 
                 <WrapPanel Height="62">
-                    <ComboBox Width="80" Height="31" Margin="20,0,0,0">
+                    <ComboBox Width="80" Height="31" Margin="20,0,0,0" Name="MonthCombo" SelectionChanged="MonthCombo_SelectionChanged">
                         <ComboBoxItem>MM</ComboBoxItem>
                     </ComboBox>
 
-                    <Label Padding="20,5,5,5" > / </Label>
+                    <Label Padding="20,5,5,5" >/</Label>
 
-                    <ComboBox Width="80" Height="31" Margin="20,0,0,0">
-                        <ComboBoxItem> YY </ComboBoxItem>
+                    <ComboBox Width="80" Height="31" Margin="20,0,0,0"  Name="yearCombo">
                     </ComboBox>
 
-                    <TextBox Width="80" Margin="20,0,0,0" Padding="20,5,0,0"> CVC </TextBox>
+                    <TextBox Width="80" Margin="20,0,0,0" Padding="20,5,0,0" Name="CVCText">CVC</TextBox>
 
-                    <Label Width="100" Margin="50,0,0,0"> Card Type : </Label>
-                    <Label Name="cardTypeTxt"> unkonwn </Label>
-                    
+                    <Label Width="100" Margin="50,0,0,0">Card Type :</Label>
+                    <TextBox Name="cardTypeTxt" BorderThickness="0,0,0,0" Width="62" Margin="0,4,0,0">unkonwn</TextBox>
+
                 </WrapPanel>
 
 
             </StackPanel>
+            <Button Grid.Column="1" Content="Next" HorizontalAlignment="Left" Margin="205,159,0,0" Grid.Row="5" VerticalAlignment="Top" Height="43" Width="126" Grid.RowSpan="2" Background="#FF007887" Foreground="#FFF9F2F2" Name="nextButton" Click="nextButton_Click"/>
 
 
         </Grid>
+
+
+        <Grid x:Name="PaymentError" Visibility="Hidden">
+            <TextBlock x:Name="Error_container" HorizontalAlignment="Left" Margin="29,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="315" Width="708" Background="#FFC82A2A" />
+            <Label x:Name="ErrorHeader" Content="Error" HorizontalAlignment="Left" Margin="63,130,0,0" VerticalAlignment="Top" Width="396" Foreground="#FFEFEFEF" Background="#FFFF2A0B" FontSize="30"/>
+
+            <Label x:Name="Error_Details" Content="Error Closing the window, try again" HorizontalAlignment="Left" Margin="63,180,0,0" VerticalAlignment="Top" Width="396" Foreground="#FFEFEFEF" Background="#FFFF2A0B" FontSize="25"/>
+            <Button x:Name="Error_CancelBtn" Content="Cancel" HorizontalAlignment="Left" Margin="517,300,0,0" VerticalAlignment="Top" Height="49" Width="136" Background="#FFF7F7F7" Click="Error_CancelBtn_Click" />
+
+        </Grid>
+
 
 
     </Grid>

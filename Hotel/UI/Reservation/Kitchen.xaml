@@ -33,7 +33,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Button Background="White" BorderThickness="0,0,0,3" Margin="0,0,28,0" Name="btnToDo" Click="btnToDo_Click" BorderBrush="#FF05BC19" Height="44" VerticalAlignment="Bottom">TODO*</Button>
-                <Button Background="White" BorderThickness="0,0,0,3" Content="Overview" Name="btnOverview" HorizontalAlignment="Left" Margin="83,0,0,0" Grid.ColumnSpan="2" Width="77" BorderBrush="#FFDCDDDB" Click="btnOverview_Click" />
+                <Button Background="White" BorderThickness="0,0,0,3" Content="Overview" Name="btnOverview" HorizontalAlignment="Left" Margin="83,0,0,0" Grid.ColumnSpan="2" Width="77" BorderBrush="#FFDBDDD9" Click="btnOverview_Click" />
 
             </Grid>
 
@@ -41,12 +41,10 @@
         </Grid>
         <Button Content="-" Margin="1244,15,47,0" VerticalAlignment="Top" Foreground="#FF2C2929" Click="minimize_screen" Height="28" FontSize="22" OpacityMask="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}" BorderBrush="#FFFFFFFC" Background="#FFFFFFFC"/>
         <Button x:Name="btnExsit" Content="X" Margin="1286,15,0,0" VerticalAlignment="Top" Foreground="#FF222121" Click="exsit_screen" Height="28" Background="#FFFFFFFC" BorderBrush="#FFFFFFFC" />
-        <DataGrid x:Name="ReservationGrid" 
-                  Margin="30,209,35,42" SelectionChanged="ReservationGrid_SelectionChanged" Visibility="Hidden"
-        />
+
         <!-- end Header -->
 
-        <Grid Margin="12,224,8,42" Grid.Column="0">
+        <Grid Margin="12,224,8,42" Grid.Column="0" Visibility="Visible" x:Name="ToDoGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="645*"/>
                 <ColumnDefinition Width="668*"/>
@@ -55,8 +53,12 @@
             </Grid.ColumnDefinitions>
 
             <!-- start Grid of column 1 -->
+            <Border
+                    BorderBrush="#FFD0D8CB"
+                    BorderThickness="1" Margin="-6,0,8,-9" Grid.RowSpan="5"
+                    />
             <Grid Margin="0,0,442,2" Grid.ColumnSpan="2">
-
+                
                 <Grid.RowDefinitions>
                     <RowDefinition Height="80"></RowDefinition>
                     <RowDefinition Height="80"></RowDefinition>
@@ -111,7 +113,7 @@
                 <StackPanel Grid.Row="3" Margin="0,0,18,0"  >
                     <Label Content="Room #" Width="410"/>
                     <WrapPanel>
-                        <TextBox x:Name="roomTxt" Width="411" Height="29" Text="Room #" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" />
+                        <TextBox x:Name="roomTxt" Width="400" Height="29" Text="Room #" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" />
                     </WrapPanel>
                 </StackPanel>
             </Grid>
@@ -121,10 +123,8 @@
             <Grid Grid.Column="1" >
                 <Border
                     BorderBrush="#FFD0D8CB"
-                    BorderThickness="1"
-                    VerticalAlignment="Stretch"
-                    >
-                </Border>
+                    BorderThickness="1" Margin="6,0,-6,0"
+                    />
 
                 <Label Content="Todo" BorderBrush="#FFD3D1D1" Margin="8,-16,390,397" Foreground="#FF6E6565" Background="#FFFFFFFC" HorizontalContentAlignment="Center"/>
 
@@ -209,7 +209,7 @@
 
 
             <!-- Start grid column 3 -->
-            <StackPanel Grid.Column="3" >
+            <StackPanel Grid.Column="2" Margin="10,0,0,0" >
                 <Label  BorderThickness="0,8,0,0" Margin="0,-35,0,0" Width="419" Foreground="#FF6E6565">On The Line</Label>
                 <ListBox Height="349" Width="410" Margin="0,0,12,0" BorderBrush="#FFB1B4B1" ></ListBox>
                 <Button Content="Update Changes?" Background="#FF05BC19" Height="34" Width="423" Margin="0,16,0,0" Click="udpateChangesHadler"/>
@@ -218,7 +218,9 @@
         </Grid>
 
 
-
+        <Grid Grid.Column="0" Margin="61,190,68,42" x:Name="OverviewGrid" Visibility="Hidden" >
+            <DataGrid x:Name="OverviewDataGrid"></DataGrid>
+        </Grid>
 
     </Grid>
 </Window>

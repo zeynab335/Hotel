@@ -51,10 +51,7 @@ namespace Hotel.FrontEnd.Reservation
         private void btnToDo_Click(object sender, RoutedEventArgs e)
         {
            btnToDo.BorderBrush = (new BrushConverter().ConvertFrom("#FF55BC07")) as Brush;
-            btnOverview.BorderBrush = (new BrushConverter().ConvertFrom("#FFFFFFFC")) as Brush;
-
-
-            ReservationGrid.Visibility = Visibility.Visible;
+            btnOverview.BorderBrush = (new BrushConverter().ConvertFrom("#FFDBDDD9")) as Brush;
             try
             {
                 reservationContext.reservations.Load();
@@ -74,10 +71,15 @@ namespace Hotel.FrontEnd.Reservation
 
         private void btnOverview_Click(object sender, RoutedEventArgs e)
         {
-            btnToDo.BorderBrush = (new BrushConverter().ConvertFrom("#FFFFFFFC")) as Brush;
+            btnToDo.BorderBrush = (new BrushConverter().ConvertFrom("#FFDBDDD9")) as Brush;
            //active
-            btnOverview.BorderBrush = (new BrushConverter().ConvertFrom("#FF55BC07")) as Brush; 
-           
+            btnOverview.BorderBrush = (new BrushConverter().ConvertFrom("#FF55BC07")) as Brush;
+
+            // load Reservation
+            OverviewGrid.Visibility = Visibility.Visible;
+            ToDoGrid.Visibility = Visibility.Hidden;
+            OverviewDataGrid.ItemsSource = reservationContext.reservations.ToList();
+
 
         }
         private void minimize_screen(object sender, RoutedEventArgs e)

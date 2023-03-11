@@ -51,7 +51,7 @@
                         <Image HorizontalAlignment="Left" Height="100" Margin="2,7,0,0" Grid.Row="1" VerticalAlignment="Top" Width="123" Source="/UI/Reservation/breakfast.png"/>
                     </Border>
                     <WrapPanel Margin="40 2">
-                        <CheckBox Margin="0,8,0,0" Name="breakfast_checkbox"></CheckBox>
+                        <CheckBox Margin="0,8,0,0" Name="breakfast_checkbox" Checked="breakfast_checkbox_Checked"></CheckBox>
                         <Label Width="136" Content="Break Fast ($7)"/>
                     </WrapPanel>
                     <TextBox Padding="2 5" Text="Quantity ?" x:Name="breakfast_quantity" Width="159"/>
@@ -65,7 +65,7 @@
                         <Image Height="100" Width="123" Source="/UI/Reservation/lunch_new_png.png"/>
                     </Border>
                     <WrapPanel Margin="40 2">
-                        <CheckBox Margin="0,8,0,0" Name="lunch_checkbox"></CheckBox>
+                        <CheckBox Margin="0,8,0,0" Name="lunch_checkbox" Checked="lunch_checkbox_Checked"></CheckBox>
                         <Label Width="136" Content="Lunch ($15)"/>
                     </WrapPanel>
                     <TextBox Padding="2 5" Text="Quantity ?" x:Name="lunch_quantity" Width="160"/>
@@ -79,7 +79,7 @@
                         <Image Height="100" Width="123" Source="/UI/Reservation/Dinner_new_png.png"/>
                     </Border>
                     <WrapPanel Margin="40 2">
-                        <CheckBox Margin="0,8,0,0" Name="dinner_checkox"></CheckBox>
+                        <CheckBox Margin="0,8,0,0" Name="dinner_checkox" Checked="dinner_checkox_Checked"></CheckBox>
                         <Label Width="136" Content="Diner ($15)"/>
                     </WrapPanel>
                     <TextBox Padding="2 5" Text="Quantity ?" x:Name="dinner_quantity" Width="157"/>
@@ -110,7 +110,7 @@
 
 
             </StackPanel>
-            <Button Content="Button" Margin="474,436,11,1" Grid.ColumnSpan="2" Background="#FF207877" Foreground="White">
+            <Button Content="Button" Margin="474,436,11,1" Grid.ColumnSpan="2" Background="#FF207877" Foreground="White" Click="Button_Click">
 
             </Button>
 
