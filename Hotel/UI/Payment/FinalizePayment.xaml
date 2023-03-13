@@ -92,22 +92,23 @@
             <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,29,16,14">
                 <Label FontSize="18" Width="360" HorizontalAlignment="Left" Margin="20,0,0,0">Payment</Label>
                 <WrapPanel Height="51" Width="709">
-                    <ComboBox Width="238" HorizontalAlignment="Left" Margin="9,0,0,0" Height="40" x:Name="PaymentTypeComb">
+                    <ComboBox Width="238" HorizontalAlignment="Left" Margin="9,0,0,0" Height="40" Name="PaymentTypeComb" ItemsSource="{Binding}" SelectedIndex="0">
                         <ComboBoxItem >Credit</ComboBoxItem>
-                        <ComboBoxItem>Depit</ComboBoxItem>
+                        <ComboBoxItem>Debit</ComboBoxItem>
 
                     </ComboBox>
                     <TextBox Text="9999 - 9999 - 9999 - 9999"  Width="439" HorizontalAlignment="Left" Height="39" Name="phoneNComboBox" VerticalAlignment="Center" Padding="0,8,0,0" Margin="10,0,0,0" MouseLeave="phoneNComboBox_Leave"/>
                 </WrapPanel>
 
                 <WrapPanel Height="62">
-                    <ComboBox Width="80" Height="31" Margin="20,0,0,0" Name="MonthCombo" SelectionChanged="MonthCombo_SelectionChanged">
+                    <ComboBox Width="80" Height="31" Margin="20,0,0,0" Name="MonthCombo" SelectionChanged="MonthCombo_SelectionChanged" ItemsSource="{Binding}" SelectedIndex="0">
                         <ComboBoxItem>MM</ComboBoxItem>
                     </ComboBox>
 
                     <Label Padding="20,5,5,5" >/</Label>
 
-                    <ComboBox Width="80" Height="31" Margin="20,0,0,0"  Name="yearCombo">
+                    <ComboBox Width="80" Height="31" Margin="20,0,0,0"  Name="yearCombo" ItemsSource="{Binding}" SelectedIndex="0">
+                        <ComboBoxItem> YY </ComboBoxItem>
                     </ComboBox>
 
                     <TextBox Width="80" Margin="20,0,0,0" Padding="20,5,0,0" Name="CVCText">CVC</TextBox>

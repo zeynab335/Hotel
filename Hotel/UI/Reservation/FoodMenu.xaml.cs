@@ -59,8 +59,12 @@ namespace Hotel.FrontEnd.Reservation
         public bool Surprise { get; set; }
 
        
+        public void HideSpecialNeedsGrid()
+        {
+            SpecialNeedsGrid.Visibility = Visibility.Collapsed;
+        }
 
-     
+
         private void breakfast_checkbox_Checked(object sender, RoutedEventArgs e)
         {
             if (breakfast_checkbox.IsChecked == true)

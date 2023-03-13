@@ -53,6 +53,8 @@
                   Margin="30,63,35,518"  Visibility="Hidden" Grid.Row="1"
               />
         <TextBlock  FontSize="30" Foreground="#FFDD1D1D" Margin="490,128,346,549" Name="ErrorValidation" Visibility="Hidden"> Please Enter all required data</TextBlock>
+        <TextBlock  FontSize="30" Foreground="#FF1DDD29" Margin="490,128,346,549" Name="SuccessfulMessage" Visibility="Hidden"> Inserted new Reservation Successfully ✅</TextBlock>
+        <TextBlock  FontSize="30" Foreground="#FFDD1D1D" Margin="490,128,346,549" Name="ErrorMessage" Visibility="Hidden"> Can't insert new Reservation  ❌</TextBlock>
 
 
         <!-- end Header -->
@@ -67,7 +69,7 @@
             </Grid.ColumnDefinitions>
 
             <!-- start Grid of column 1 -->
-            <Grid Grid.ColumnSpan="2" Margin="0,24,417,6">
+            <Grid Grid.ColumnSpan="2" Margin="0,24,417,6" Name="reservationColumn1">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="80"></RowDefinition>
@@ -84,12 +86,12 @@
                 <Border BorderThickness="2" BorderBrush="#FFD8D7D7" Margin="0,10,26,26" Grid.RowSpan="8" />
 
 
-                <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,10,26,0">
+                <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,10,26,0" >
                     <Label Content="Name" Width="413
                            " Height="30" Margin="0,8,0,0"/>
                     <WrapPanel Width="413">
-                        <TextBox x:Name="firstnameTxt" TextChanged="TextValueChanges" LostFocus ="LostFocusHandler"  GotFocus="OnGotFocusHandler"   Width="187" Height="29" Text="First" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6,0,0,0"  />
-                        <TextBox x:Name="lastnameTxt" TextChanged="TextValueChanges" LostFocus ="LostFocusHandler"  GotFocus="OnGotFocusHandler"  Width="206" Text="Last" Foreground="#FF837E7E" Padding="0,4,0,0" FontSize="12" Margin="10,0,0,0"/>
+                        <TextBox x:Name="firstnameTxt" TextChanged="TextValueChanges" LostFocus ="LostFocusHandler"  GotFocus="OnGotFocusHandler"   Width="187" Height="29" Text="{Binding first_name , FallbackValue=First }" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6,0,0,0"  />
+                        <TextBox x:Name="lastnameTxt" TextChanged="TextValueChanges" LostFocus ="LostFocusHandler"  GotFocus="OnGotFocusHandler"  Width="206" Text="{Binding last_name , FallbackValue=Last }" Foreground="#FF837E7E" Padding="0,4,0,0" FontSize="12" Margin="10,0,0,0"/>
                     </WrapPanel>
                 </StackPanel>
 
@@ -97,9 +99,9 @@
                 <StackPanel Grid.Row="1" Margin="0,0,26,0">
                     <Label Content="Birthday" Height="32" Width="425" HorizontalAlignment="Left" Margin="6.3,0,0,0"/>
                     <WrapPanel>
-                        <ComboBox Name="Month_combo" Width="135"  Margin="10,0,0,0"/>
-                        <ComboBox Name="Day_combo" Width="135"  Margin="7,0,0,0"/>
-                        <TextBox x:Name="Year_txt" TextChanged="TextValueChanges" LostFocus ="LostFocusHandler"  GotFocus="OnGotFocusHandler"  Width="114" Margin="8,0,0,0"/>
+                        <ComboBox Name="Month_combo" Width="135"  Margin="10,0,0,0" ItemsSource="{Binding}"  />
+                        <ComboBox Name="Day_combo" Width="135"  Margin="7,0,0,0" ItemsSource="{Binding}"/>
+                        <TextBox x:Name="Year_txt" TextChanged="TextValueChanges" LostFocus ="LostFocusHandler"  GotFocus="OnGotFocusHandler"  Width="114" Margin="8,0,0,0" Text="{Binding birth_day}"/>
                     </WrapPanel>
                 </StackPanel>
 
@@ -107,7 +109,7 @@
                 <StackPanel Grid.Row="2" Margin="0,0,26,10">
                     <Label Content="Gender" Width="414"/>
                     <WrapPanel>
-                        <ComboBox x:Name="Gender_combo" Width="401" Margin="8,0,0,0" />
+                        <ComboBox x:Name="Gender_combo" Width="401" Margin="8,0,0,0"  ItemsSource="{Binding}"  />
                     </WrapPanel>
                 </StackPanel>
 
@@ -115,7 +117,7 @@
                 <StackPanel Grid.Row="3" Margin="0,0,26,0">
                     <Label Content="Phone number" Width="408"/>
                     <WrapPanel>
-                        <TextBox  x:Name="phoneNumberTxt" TextChanged="TextValueChanges" LostFocus ="phoneNumberTxt_lostFocus"  GotFocus="OnGotFocusHandler"  Width="401" Height="29" Text="(999)-999-9999" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" Margin="9.5,0,0,0" />
+                        <TextBox  x:Name="phoneNumberTxt" Text="{Binding phone_number , FallbackValue=(999)-999-9999 }" TextChanged="TextValueChanges" LostFocus ="phoneNumberTxt_lostFocus"  GotFocus="OnGotFocusHandler"  Width="401" Height="29"  FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" Margin="9.5,0,0,0" />
                     </WrapPanel>
                 </StackPanel>
 
@@ -123,27 +125,27 @@
                 <StackPanel Grid.Row="4" Margin="0,0,26,0">
                     <Label Content="Your e-mail address" Width="405"/>
                     <WrapPanel>
-                        <TextBox x:Name="emailTxt" TextChanged="TextValueChanges" LostFocus ="LostFocusHandler"  GotFocus="OnGotFocusHandler"  Width="402" Height="29" Text="first.last@example.com" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" Margin="10,0,0,0" />
+                        <TextBox x:Name="emailTxt" TextChanged="TextValueChanges" LostFocus ="LostFocusHandler"  GotFocus="OnGotFocusHandler"  Width="402" Height="29"  Text="{Binding email_address , FallbackValue=first.last@example.com }" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" Margin="10,0,0,0" />
                     </WrapPanel>
                 </StackPanel>
 
                 <StackPanel Grid.Row="5" Margin="0,0,26,5" >
-                    <TextBox x:Name="streetText" TextChanged="TextValueChanges" LostFocus ="LostFocusHandler"  GotFocus="OnGotFocusHandler"   Width="400" Height="26" Text="Street Address" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" Margin="0,6,0,0" />
+                    <TextBox x:Name="streetText" TextChanged="TextValueChanges" LostFocus ="LostFocusHandler"  GotFocus="OnGotFocusHandler"   Width="400" Height="26" Text="{Binding street_address , FallbackValue= StreetAddress}" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" Margin="0,6,0,0" />
                 </StackPanel>
 
 
                 <!-- City -->
                 <WrapPanel Grid.Row="6" Margin="0,12,26,7" >
-                    <TextBox x:Name="aptSuiteTxt" Text="Apt./Suite" Width="189" Height="29"  FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" Margin="10,0,0,0" />
-                    <TextBox x:Name="cityTxt" TextChanged="TextValueChanges" LostFocus ="LostFocusHandler"  GotFocus="OnGotFocusHandler"  Width="195" Height="29" Text="City" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" Margin="10,0,0,0" />
+                    <TextBox x:Name="aptSuiteTxt"  Width="189" Height="29"  FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" Margin="10,0,0,0" Text="{Binding apt_suite , FallbackValue= Apt./Suite }"/>
+                    <TextBox x:Name="cityTxt" TextChanged="TextValueChanges" LostFocus ="LostFocusHandler"  GotFocus="OnGotFocusHandler"  Width="195" Height="29" Text="{Binding city , FallbackValue=City}" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" Margin="10,0,0,0" />
                 </WrapPanel>
 
                 <!-- City -->
                 <WrapPanel Grid.Row="7" Margin="0,16,26,39"  >
-                    <ComboBox Name="stateComb" Width="188"  SelectedIndex="0" Margin="10,0,0,0" SelectionChanged="stateComb_SelectionChanged" >
-                        <ComboBoxItem>State</ComboBoxItem>
-                    </ComboBox>
-                    <TextBox x:Name="zipTxt" TextChanged="TextValueChanges" LostFocus ="LostFocusHandler"  GotFocus="OnGotFocusHandler"  Width="200" Height="29" Text="Zip Code" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" />
+                    <ComboBox Name="stateComb" Width="188"  Margin="10,0,0,0" SelectionChanged="stateComb_SelectionChanged"  ItemsSource="{Binding}" />
+                    <!--<ComboBoxItem >State</ComboBoxItem>-->
+                    <!--</ComboBox>-->
+                    <TextBox x:Name="zipTxt" TextChanged="TextValueChanges" LostFocus ="LostFocusHandler"  GotFocus="OnGotFocusHandler"  Width="200" Height="29" Text="{Binding zip_code , FallbackValue= zip_code}" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" />
                 </WrapPanel>
 
 
@@ -155,7 +157,7 @@
             <!-- end Grid of column 1 -->
 
             <!-- start Grid of column 2 -->
-            <Grid Grid.Column="1" Margin="25,24,439,-14" Grid.ColumnSpan="2" >
+            <Grid Grid.Column="1" Margin="25,24,439,-14" Grid.ColumnSpan="2" Name="reservationColumn2">
                 <Border BorderThickness="2" BorderBrush="#FFD8D7D7" Margin="-4,14,0,24" Height="510" />
 
                 <Label Content="Your Choices" BorderBrush="#FFD3D1D1" Margin="18,-14,297,590" Foreground="#FF6E6565" Background="#FFFFFFFC"/>
@@ -164,8 +166,8 @@
                 <Grid Margin="10,38,10,0" Height="495" VerticalAlignment="Top" >
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50"></RowDefinition>
                         <RowDefinition Height="46"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
                         <RowDefinition Height="94"></RowDefinition>
                         <RowDefinition Height="86"></RowDefinition>
                         <RowDefinition Height="55"></RowDefinition>
@@ -185,11 +187,11 @@
 
                     <!-- choices -->
                     <WrapPanel Grid.Row="0" Grid.ColumnSpan="4" Margin="0,0,10,36" Grid.RowSpan="2"   >
-                        <ComboBox Name="guestsCombo" Width="184"  SelectedIndex="0" >
+                        <ComboBox Name="guestsCombo" Width="184"  ItemsSource="{Binding}" SelectedIndex="0" >
                             <ComboBoxItem># of guests</ComboBoxItem>
                         </ComboBox>
 
-                        <ComboBox Name="roomTypeComb" Width="184"  SelectedIndex="0" Margin="10,0,0,0" SelectionChanged="roomTypeComb_SelectionChanged" >
+                        <ComboBox Name="roomTypeComb" Width="184"  Margin="10,0,0,0" SelectedIndex="0" SelectionChanged="roomTypeComb_SelectionChanged"  ItemsSource="{Binding}" >
                             <ComboBoxItem>Room type</ComboBoxItem>
                         </ComboBox>
 
@@ -200,11 +202,11 @@
                     <!--  Floor -->
 
                     <WrapPanel Grid.Row="1" Grid.ColumnSpan="4" Margin="0,6,10,4"   >
-                        <ComboBox Name="floorCombo" Width="184"  SelectedIndex="0" >
+                        <ComboBox Name="floorCombo" Width="184"   ItemsSource="{Binding}" SelectedIndex="0" SelectionChanged="floorCombo_SelectionChanged" >
                             <ComboBoxItem>Floor</ComboBoxItem>
                         </ComboBox>
 
-                        <ComboBox Name="roomNumberComb" Width="184"  SelectedIndex="0" Margin="10,0,0,0" >
+                        <ComboBox Name="roomNumberComb" Width="184"   Margin="10,0,0,0" SelectedIndex="0" ItemsSource="{Binding}" SelectionChanged="roomNumberComb_SelectionChanged" >
                             <ComboBoxItem>#</ComboBoxItem>
                         </ComboBox>
 
@@ -213,41 +215,41 @@
                     <!-- Date Picker -->
                     <StackPanel Grid.ColumnSpan="4"  Grid.Row="2"  >
                         <Label Height="35" Width="399">Entry [date]</Label>
-                        <DatePicker  Name="Entry_Date" HorizontalAlignment="Left" Height="33" Width="388" Margin="0,3,0,0" />
+                        <DatePicker  Name="Entry_Date" HorizontalAlignment="Left" Height="33" Width="388" Margin="0,3,0,0" SelectedDate="{Binding Path=arrival_time}"    />
                     </StackPanel>
 
                     <!-- Deperture [date] -->
                     <StackPanel Grid.ColumnSpan="4"  Grid.Row="3"  >
                         <Label Height="35" Width="399">Departure [date]</Label>
-                        <DatePicker  Name="Departure_Date" HorizontalAlignment="Left" Height="33" Width="388" Margin="0,3,0,0" />
+                        <DatePicker  Name="Departure_Date" HorizontalAlignment="Left" Height="33" Width="388" Margin="0,3,0,0" SelectedDate="{Binding Path=leaving_time}"/>
                     </StackPanel>
 
 
                     <!-- Show Food and Menu Form -->
-                    <Button Grid.Row="4" Grid.ColumnSpan="4" Margin="10,6,10,14" Background="#FFF0FEDA" Foreground="#FF25850D" FontWeight="Bold" Height="35" Name="showFoodMenuForm" Click="showFoodMenuForm_Click" >Food and Menu</Button>
+                    <Button Grid.Row="4" Grid.ColumnSpan="4" Margin="10,6,10,14" Background="#FFF0FEDA" Foreground="#FF25850D" FontWeight="Bold" Name="showFoodMenuForm" Click="showFoodMenuForm_Click" >Food and Menu</Button>
 
                     <!-- Change food selection? BTN -->
-                    <WrapPanel Grid.Row="5" Grid.Column="0" >
-                        <CheckBox VerticalAlignment="Top" Height="20" Width="16" HorizontalAlignment="Center" Padding="13,0,0,0"  Margin="0,6,0,0" Name="checkinCheckBox" Checked="checkinCheckBox_Checked"/>
+                    <WrapPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,106,0" >
+                        <CheckBox VerticalAlignment="Top" Height="20" Width="16" HorizontalAlignment="Center" Padding="13,0,0,0"  Margin="0,6,0,0" Name="checkinCheckBox" Checked="checkinCheckBox_Checked" IsChecked="{Binding check_in}" />
                         <Label VerticalAlignment="Center" Padding="10,1,7,5" Content="Check in ?" Width="84" Height="25"/>
                     </WrapPanel>
                     <!--- Send Me checkbox -->
                     <WrapPanel Grid.Row="5" Grid.ColumnSpan="3" Margin="107,0,95,0">
-                        <CheckBox VerticalAlignment="Top" Height="20" Width="16" HorizontalAlignment="Center" Padding="13,0,0,0"  Margin="3,6,0,0" Name="sendSMsCheckBox" />
+                        <CheckBox VerticalAlignment="Top" Height="20" Width="16" HorizontalAlignment="Center" Padding="13,0,0,0"  Margin="3,6,0,0" Name="sendSMsCheckBox"  />
                         <Label Padding="10,1,7,5" Content="Send sms?" Width="83" Height="26" VerticalAlignment="Top" Margin="0,3,0,0" RenderTransformOrigin="0.5,0.5">
                         </Label>
                     </WrapPanel>
                     <!-- Food/Supply status ? -->
-                    <WrapPanel Grid.Row="5"  Grid.ColumnSpan="2" Grid.Column="2">
+                    <WrapPanel Grid.Row="5"  Grid.ColumnSpan="3" Grid.Column="1" Margin="106,0,0,0">
                         <CheckBox VerticalAlignment="Top" Height="20" Width="16" HorizontalAlignment="Center" Padding="13,0,0,0"  Margin="3,6,0,0" Name="foodSupplyCheckBox" Checked="foodSupplyCheckBox_Checked"/>
-                        <Label Padding="10,1,7,5" Content="Food/Supply status ?" Width="150" Height="26" VerticalAlignment="Top" Margin="0,3,0,0"/>
+                        <Label Padding="10,1,7,5" Content="Food/Supply status ?" Width="150" Height="26" VerticalAlignment="Top" Margin="0,3,0,0" IsEnabled="False"/>
                     </WrapPanel>
 
 
 
 
                     <!-- Finalize bill BTN -->
-                    <Button Name="FinalizePayment" Content="Finalize bill" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="4"  Background="#FFF0FEDA" Margin="6,18,14,198" RenderTransformOrigin="0.484,2.577" Foreground="#FF25850D" FontWeight="Bold" Height="35" Click="FinalizePayment_Click"></Button>
+                    <Button Name="FinalizePayment" Content="Finalize bill" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="4"  Background="#FFF0FEDA" Margin="6,18,14,198" RenderTransformOrigin="0.484,2.577" Foreground="#FF25850D" FontWeight="Bold" Click="FinalizePayment_Click"/>
 
                     <!-- submit selection? BTN -->
                     <Button Content="Submit" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="4"  Background="#FF009B1F" Click="SubmitNewReservationHandler" Margin="10,68,10,148" BorderBrush="#FF279B0A" BorderThickness="3,3,3,3" Foreground="#FFF6FFF4" FontWeight="Bold" Name="SubmitForm"></Button>
@@ -260,23 +262,29 @@
 
 
             <!-- Start grid column 3 -->
-            <Grid Grid.Column="2" Margin="0,223,0,0" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="226*"/>
-                    <ColumnDefinition Width="213*"/>
-                </Grid.ColumnDefinitions>
-                <Border BorderThickness="2" BorderBrush="#FFD8D7D7" Margin="13,-182,-3,10" Grid.ColumnSpan="2" />
+            <Grid Grid.Column="2" Margin="0,230,0,0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="26*"/>
+                    <RowDefinition Height="15*" />
+                </Grid.RowDefinitions>
+                <Border BorderThickness="2" BorderBrush="#FFD8D7D7" Margin="13,-190,-3,10" Grid.RowSpan="2" />
 
-                <!-- Reservation compBox -->
-                <ComboBox Name="reservation_combo"  SelectedIndex="0" Margin="34,-158,22,453" Grid.ColumnSpan="2">
-                    <ComboBoxItem>Select reservation to edit</ComboBoxItem>
-                </ComboBox>
+                <StackPanel Grid.Row="0" Margin="13,-162,-2,20" Name="editReservationGrid" Visibility="Hidden">
+                    <!-- Reservation compBox -->
+                    <ComboBox  SelectedIndex="0" Height="44" Width="412" Name="comboBoxEditReservation" SelectionChanged="comboBoxEditReservation_SelectionChanged" >
+                    </ComboBox>
 
-                <Button Grid.ColumnSpan="2" Margin="26,71,8,217" Background="#FFF0FEDA" Content="Update" Name="UpdateReservationBtn" Click="UpdateReservationBtn_Click" Foreground="#FF25850D" FontWeight="Bold">
-                </Button>
-                <Button Name="deleteReservation" Content="Delete" Background="#FFFE1F00" Margin="24,136,10,147"  Grid.ColumnSpan="2" BorderBrush="#FFBA1F1F" BorderThickness="3,3,3,3" Foreground="#FFF9F9F9" FontWeight="Bold" Padding="1,4,1,4" Height="44" Click="deleteReservation_Click" />
-                <Button Name="editReservation" Grid.ColumnSpan="2" Margin="26,198,8,90" Background="#FFF0FEDA" Content="Edit existing Reservation"  Foreground="#FF25850D" FontWeight="Bold" Height="44" Click="editReservation_Click"/>
-                <Button Name="addReservation" Grid.ColumnSpan="2" Margin="26,253,8,35" Background="#FFF0FEDA" Content="New reservation"   Foreground="#FF25850D" FontWeight="Bold" Height="44" Click="addReservation_Click"/>
+                    <Button Grid.ColumnSpan="2"  Background="#FFF0FEDA" Content="Update" Name="UpdateReservationBtn" Click="UpdateReservationBtn_Click" Foreground="#FF25850D" FontWeight="Bold" Height="50" Margin="0,200,0,10" Width="411">
+                    </Button>
+                    <Button x:Name="deleteReservation" Content="Delete" Background="#FFFE1F00" BorderBrush="#FFBA1F1F" BorderThickness="3,3,3,3" Foreground="#FFF9F9F9" FontWeight="Bold" Padding="1,4,1,4" Height="47" Click="deleteReservation_Click" Width="411" Margin="0,0,0,10" />
+
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Margin="13,0,0,10">
+                    <Button x:Name="editReservation" Background="#FFF0FEDA" Content="Edit existing Reservation"  Foreground="#FF25850D" FontWeight="Bold" Height="44" Click="editReservation_Click" Width="408" Margin="0,0,0,10"/>
+                    <Button x:Name="addReservation" Background="#FFF0FEDA" Content="New reservation"   Foreground="#FF25850D" FontWeight="Bold" Height="44" Click="addReservation_Click" Width="406"/>
+                </StackPanel>
+
             </Grid>
 
 

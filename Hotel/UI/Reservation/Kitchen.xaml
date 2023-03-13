@@ -57,7 +57,10 @@
                     BorderBrush="#FFD0D8CB"
                     BorderThickness="1" Margin="-6,0,8,-9" Grid.RowSpan="5"
                     />
-            <Grid Margin="0,0,442,2" Grid.ColumnSpan="2">
+
+
+            <Grid Margin="0,0,442,2" Grid.ColumnSpan="2" x:Name="From1Grid"  DataContext="{Binding ElementName=OnTheLine_List,Path=SelectedItem}">
+                
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="80"></RowDefinition>
@@ -67,13 +70,12 @@
                     <RowDefinition Height="80"></RowDefinition>
 
                 </Grid.RowDefinitions>
-
-
+              
                 <StackPanel Grid.Row="0" Margin="0,0,18,0">
                     <Label Content="Name"/>
                     <WrapPanel>
-                        <TextBox x:Name="firstnameTxt" Width="190" Height="29" Text="First" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" />
-                        <TextBox x:Name="lastnameTxt" Width="211" Text="Last" Foreground="#FF837E7E" Padding="0,4,0,0" FontSize="12" Margin="9,0,0,0"/>
+                        <TextBox x:Name="firstnameTxt" Width="190" Height="29" Text="{Binding first_name, FallbackValue=First}" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" IsEnabled="False"/>
+                        <TextBox x:Name="lastnameTxt" Width="211" Text="{Binding last_name , FallbackValue=Last }" IsEnabled="False" Foreground="#FF837E7E" Padding="0,4,0,0" FontSize="12" Margin="9,0,0,0" />
                     </WrapPanel>
                 </StackPanel>
 
@@ -81,7 +83,7 @@
                 <StackPanel Grid.Row="1" Margin="0,0,18,0">
                     <Label Content="Phone number" Width="405"/>
                     <WrapPanel>
-                        <TextBox x:Name="phoneNumberTxt" Width="405" Height="29" Text="(999)-999-9999" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" />
+                        <TextBox x:Name="phoneNumberTxt" Width="405" Height="29" Text="{Binding phone_number , FallbackValue=(999)-999-9999 }" IsEnabled="False" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" />
                     </WrapPanel>
                 </StackPanel>
 
@@ -95,7 +97,7 @@
                     <StackPanel Grid.ColumnSpan="2"  Margin="213,0,0,0">
                         <Label Content="Floor"/>
                         <WrapPanel>
-                            <TextBox x:Name="floorTxt" Width="196" Height="29" Text="Floor #" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" />
+                            <TextBox x:Name="floorTxt" Width="196" Height="29"  Text="{Binding room_floor , FallbackValue=Floor# }" IsEnabled="False"  FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" />
                         </WrapPanel>
 
 
@@ -104,7 +106,7 @@
                     <StackPanel  Grid.Row ="2">
                         <Label Content="Room Type"/>
                         <WrapPanel>
-                            <TextBox x:Name="roomTypeTxt" Width="200" Margin="7,0,0,0" Height="29" Text="Room Type" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" />
+                            <TextBox x:Name="roomTypeTxt" Width="200" Margin="7,0,0,0" Height="29" Text="{Binding room_type , FallbackValue=RoomType }" IsEnabled="False"  FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" />
                         </WrapPanel>
                     </StackPanel>
 
@@ -113,14 +115,14 @@
                 <StackPanel Grid.Row="3" Margin="0,0,18,0"  >
                     <Label Content="Room #" Width="410"/>
                     <WrapPanel>
-                        <TextBox x:Name="roomTxt" Width="400" Height="29" Text="Room #" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" />
+                        <TextBox x:Name="roomTxt" Width="400" Height="29"  Text="{Binding room_number , FallbackValue=Room# }" IsEnabled="False"  FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" />
                     </WrapPanel>
                 </StackPanel>
             </Grid>
             <!-- end Grid of column 1 -->
 
             <!-- start Grid of column 2 -->
-            <Grid Grid.Column="1" >
+            <Grid Grid.Column="1" x:Name="From2Grid"  DataContext="{Binding ElementName=OnTheLine_List,Path=SelectedItem}">
                 <Border
                     BorderBrush="#FFD0D8CB"
                     BorderThickness="1" Margin="6,0,-6,0"
@@ -129,7 +131,7 @@
                 <Label Content="Todo" BorderBrush="#FFD3D1D1" Margin="8,-16,390,397" Foreground="#FF6E6565" Background="#FFFFFFFC" HorizontalContentAlignment="Center"/>
 
 
-                <Grid Margin="10,40,10,0" >
+                <Grid Margin="10,40,10,0"  >
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="80"></RowDefinition>
@@ -153,7 +155,7 @@
                     <StackPanel Grid.Column="0" Grid.ColumnSpan="2"  Grid.Row="0" Margin="0,0,1,0">
                         <Label Content="Breakfast [QTY] "/>
                         <WrapPanel>
-                            <TextBox x:Name="breakfastTxt" Width="201" Height="29" Text="Breakfast" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" Margin="7,0,0,0" />
+                            <TextBox x:Name="breakfastTxt" Width="201" Height="29" Text="{Binding break_fast , FallbackValue= Breakfast }" IsEnabled="False"  FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" Margin="7,0,0,0" />
                         </WrapPanel>
                     </StackPanel>
 
@@ -161,7 +163,7 @@
                     <StackPanel Grid.Column="2" Grid.ColumnSpan="2"  Grid.Row="0">
                         <Label Content="Lunch [QTY] " Width="202"/>
                         <WrapPanel>
-                            <TextBox x:Name="LunchTxt" Width="195" Height="29" Text="Lunch" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" Margin="11,0,0,0" />
+                            <TextBox x:Name="LunchTxt" Width="195" Height="29"  Text="{Binding lunch , FallbackValue=Lunch }" IsEnabled="False"  FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" Margin="11,0,0,0" />
                         </WrapPanel>
 
                     </StackPanel>
@@ -171,36 +173,36 @@
                     <StackPanel Grid.Column="0" Grid.ColumnSpan="4"  Grid.Row="1">
                         <Label Content="Dinner [QTY] " Width="202" HorizontalAlignment="Left"/>
                         <WrapPanel>
-                            <TextBox x:Name="dinnerTxt" Width="404" Height="29" Text="Dinner" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" Margin="8,0,0,0" />
+                            <TextBox x:Name="dinnerTxt" Width="404" Height="29" Text="{Binding dinner , FallbackValue=Dinner }" IsEnabled="False" FontSize="12" Foreground="#FF837E7E" Padding="0,4,0,0" Margin="8,0,0,0" />
                         </WrapPanel>
 
                     </StackPanel>
 
 
                     <!-- services -->
-                    <WrapPanel Grid.Column="0" Grid.Row="2" Margin="0,20,106,20" Grid.ColumnSpan="2">
-                        <CheckBox VerticalAlignment="Bottom" Height="20" Width="21" HorizontalAlignment="Right" Padding="13,0,0,0" Checked="CheckBox_Checked" Margin="6,0,0,0"></CheckBox>
-                        <Label VerticalAlignment="Top" Padding="10,1,7,5" Content="Cleaning"/>
+                    <WrapPanel Grid.Column="0" Grid.Row="2" Margin="0,20,106,20" Grid.ColumnSpan="2" Name="cleaningCheckBox">
+                        <CheckBox VerticalAlignment="Bottom" Height="20" Width="21" HorizontalAlignment="Right" Padding="13,0,0,0" IsChecked="{Binding cleaning }" IsEnabled="False" Margin="6,0,0,0" Name="cleaningCheckbox"></CheckBox>
+                        <Label VerticalAlignment="Top" Padding="10,1,7,5" Content="Cleaning" Name="cleaningCheckboxContent"/>
                     </WrapPanel>
 
                     <WrapPanel Grid.Column="1" Grid.Row="2" Margin="0,20,1,20">
-                        <CheckBox  VerticalAlignment="Bottom" Height="20" Width="21" HorizontalAlignment="Right" Padding="13,0,0,0" Checked="CheckBox_Checked" Margin="6,0,0,0"></CheckBox>
-                        <Label VerticalAlignment="Top" Padding="10,1,7,5" Content="Towels"/>
+                        <CheckBox  VerticalAlignment="Bottom" Height="20" Width="21" HorizontalAlignment="Right" Padding="13,0,0,0" IsChecked="{Binding towel }" IsEnabled="False" Margin="6,0,0,0" Name="towelsCheckbox"></CheckBox>
+                        <Label VerticalAlignment="Top" Padding="10,1,7,5" Content="Towels" Name="towelCheckBox"/>
                     </WrapPanel>
 
                     <WrapPanel Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" Margin="0,20,9,20">
-                        <CheckBox  VerticalAlignment="Bottom" Height="20" Width="21" HorizontalAlignment="Right" Padding="13,0,0,0" Checked="CheckBox_Checked" Margin="6,0,0,0"></CheckBox>
-                        <Label VerticalAlignment="Top" Padding="10,1,7,5" Content="Sweetest Surprise"/>
+                        <CheckBox  VerticalAlignment="Bottom" Height="20" Width="21" HorizontalAlignment="Right" Padding="13,0,0,0" IsChecked="{Binding s_surprise }" IsEnabled="False" Margin="6,0,0,0" Name="sweetSurpriseCheckbox"></CheckBox>
+                        <Label VerticalAlignment="Top" Padding="10,1,7,5" Content="Sweetest Surprise" Name="surpriseCheckBox"/>
                     </WrapPanel>
 
                     <WrapPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Margin="0,20,9,20">
-                        <CheckBox  VerticalAlignment="Bottom" Height="20" Width="21" HorizontalAlignment="Right" Padding="13,0,0,0" Checked="CheckBox_Checked" Margin="6,0,0,0"></CheckBox>
+                        <CheckBox  VerticalAlignment="Bottom" Height="20" Width="21" HorizontalAlignment="Right" Padding="13,0,0,0"  Margin="6,0,0,0" Checked="FoodSupply_checked"></CheckBox>
                         <Label VerticalAlignment="Top" Padding="10,1,7,5" Content=" Food/Supply status ?"/>
                     </WrapPanel>
 
 
                     <!-- Change food selection? BTN -->
-                    <Button Content="Change food selection?" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4" Margin="0,6,0,40" Background="#FF05BC19" Click="changeSelectionHandler"></Button>
+                    <Button Content="Change food selection?" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4" Margin="0,6,0,40" Background="#FF05BC19" Click="changeSelectionHandler" ></Button>
 
                 </Grid>
 
@@ -211,7 +213,7 @@
             <!-- Start grid column 3 -->
             <StackPanel Grid.Column="2" Margin="10,0,0,0" >
                 <Label  BorderThickness="0,8,0,0" Margin="0,-35,0,0" Width="419" Foreground="#FF6E6565">On The Line</Label>
-                <DataGrid x:Name="OnTheLine_List" AutoGenerateColumns="false" GridLinesVisibility="None" Height="363" Width="410">
+                <DataGrid x:Name="OnTheLine_List"  GridLinesVisibility="None" Height="363" Width="410" AutoGenerateColumns="False">
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Binding="{Binding room_number}" Width="90" CanUserResize="False">

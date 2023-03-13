@@ -104,12 +104,16 @@ namespace Hotel.UI.Payment
             double totalWithTax = Convert.ToDouble(totalAmountFromFrontend) * 0.07;
             double FinalTotal = Convert.ToDouble(totalAmountFromFrontend) + totalWithTax + foodBill;
 
+
             // show prices on screen
             currentBill_Price.Content = "$" + Convert.ToString(totalAmountFromFrontend) + " USD";
             foodBill_Price.Content = "$" + Convert.ToString(foodBill) + " USD";
             Tax_Price.Content = "$" + Convert.ToString(totalWithTax) + " USD";
             Total_Price.Content = "$" + Convert.ToString(FinalTotal) + " USD";
+
             FinalTotalFinalized = FinalTotal;
+
+            PaymentTypeComb.SelectedItem = PaymentType?.Trim().ToString()?? "credit"; 
         }
         private void exsit_screen(object sender, RoutedEventArgs e)
         {
@@ -144,24 +148,28 @@ namespace Hotel.UI.Payment
         private void MonthCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             
-            if (phoneNComboBox.Text.Substring(0, 1) == "3")
+            if(cardTypeTxt != null)
             {
-                cardTypeTxt.Text = "AmericanExpress";
+                if (phoneNComboBox.Text.Substring(0, 1) == "3")
+                {
+                    cardTypeTxt.Text = "AmericanExpress";
+                }
+                else if (phoneNComboBox.Text.Substring(0, 1) == "4")
+                {
+                    cardTypeTxt.Text = "Visa";
+                }
+                else if (phoneNComboBox.Text.Substring(0, 1) == "5")
+                {
+                    cardTypeTxt.Text = "MasterCard";
+                }
+                else if (phoneNComboBox.Text.Substring(0, 1) == "6")
+                {
+                    cardTypeTxt.Text = "Discover";
+                }
+                else
+                    cardTypeTxt.Text = "Unknown";
             }
-            else if (phoneNComboBox.Text.Substring(0, 1) == "4")
-            {
-                cardTypeTxt.Text = "Visa";
-            }
-            else if (phoneNComboBox.Text.Substring(0, 1) == "5")
-            {
-                cardTypeTxt.Text = "MasterCard";
-            }
-            else if (phoneNComboBox.Text.Substring(0, 1) == "6")
-            {
-                cardTypeTxt.Text = "Discover";
-            }
-            else
-                cardTypeTxt.Text = "Unknown";
+          
         }
 
         private void phoneNComboBox_Leave(object sender, EventArgs e)

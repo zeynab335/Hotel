@@ -2,6 +2,7 @@
 using Hotel.FrontEnd.Reservation;
 using Hotel.Models;
 using Hotel.UI.Payment;
+using Hotel.UI.Report;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using Newtonsoft.Json.Linq;
@@ -27,7 +28,6 @@ using System.Xml.Linq;
 using Twilio.Clients;
 using Twilio.Types;
 using static System.Net.Mime.MediaTypeNames;
-
 namespace Hotel.UI.FrontEnd
 {
 
@@ -46,28 +46,17 @@ namespace Hotel.UI.FrontEnd
 
         #region start all fields 
 
-        //private int id = 0;
-        //private string first_name = string.Empty;
-        //private string last_name = string.Empty;
-        //private Gender gender;
-
-
-        private string birthday = "";
-
-
+       
         public string towelS, cleaningS, surpriseS;
 
         private int foodBill;
         private int totalAmount = 0;
-        private int checkin = 0;
 
-        private int foodStatus = 0;
         private Int32 primartyID = 0;
         private Boolean taskFinder = false;
         private Boolean editClicked = false;
 
         // payment
-        private string FPayment, FCnumber, FcardExpOne, FcardExpTwo, FCardCVC;
         private double finalizedTotalAmount = 0.0;
         private string paymentType;
         private string paymentCardNumber;
@@ -93,6 +82,7 @@ namespace Hotel.UI.FrontEnd
             InitializeComponent();
 
             ReservationData = new();
+            
 
             // load reservation AD.View
             context = new Hotel.Context.Context();
@@ -107,6 +97,11 @@ namespace Hotel.UI.FrontEnd
         private void loadControls()
         {
             #region Start Loading all comboBox
+
+
+            firstnameTxt.Text = "First";
+            lastnameTxt.Text = "Last";
+
             // load all comboboxes
             // ComboBox of  Month
             string[] Months_Names = new[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
@@ -134,7 +129,7 @@ namespace Hotel.UI.FrontEnd
 
             // compoBox of state
 
-            foreach (var item in new string[] { "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York" })
+            foreach (var item in new string[] { "state", "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York" })
             {
                 stateComb.Items.Add(item);
             }
@@ -353,13 +348,27 @@ namespace Hotel.UI.FrontEnd
                     ReservationData.number_guest = number_guest;
 
                 // floor
-                ReservationData.room_floor = floorCombo.SelectedValue.ToString() ?? "NA";
+                if (taskFinder)
+                {
+                    ReservationData.room_floor = roomFloor;
+                    
+                    // room Number
+                    ReservationData.room_number = roomNumber;
 
+                }
+                else
+                {
+                    ReservationData.room_floor = floorCombo.SelectedItem.ToString() ?? "NA";
+                  
+                    // room Number
+                    ReservationData.room_number = roomNumberComb.SelectedItem.ToString() ?? "NA";
+                }
                 // room type 
-                ReservationData.room_type = roomTypeComb.SelectedValue.ToString() ?? "NA";
+                ReservationData.room_type = roomTypeComb.SelectedValue?.ToString() ?? ReservationData.room_type;
 
-                // room Number
-                ReservationData.room_number = roomNumberComb.SelectedValue.ToString() ?? "NA";
+
+                ReservationData.apt_suite = aptSuiteTxt.Text;
+               
 
                 // Entry DAta
                 ReservationData.arrival_time = Entry_Date?.SelectedDate ?? DateTime.Now;
@@ -383,16 +392,48 @@ namespace Hotel.UI.FrontEnd
         {
             try
             {
-                //Lists_of_reservation.Add(ReservationData);
+                ErrorValidation.Visibility= Visibility.Collapsed;
+
                 context.reservations.Add(ReservationData);
-                //context.Entry(reservation).State = EntityState.Modified;
                 context.SaveChanges();
 
+                // SuccessfulMessage.Visibility = Visibility.Visible;
+                Hotel.UI.Report.Report message = new Hotel.UI.Report.Report("\"Inserted item from database successfully. For the UNIQUE USER ID of: ", primartyID);
+                message.ShowDialog();
+            
 
             }
             catch
             {
-                MessageBox.Show("error");
+                //ErrorMessage.Visibility = Visibility.Visible;
+                Hotel.UI.Report.Report message = new Hotel.UI.Report.Report("\"Inserted item from database successfully. For the UNIQUE USER ID of: ", primartyID);
+                message.ShowDialog();
+            }
+
+        
+
+
+        }
+
+        private void UpdatetData()
+        {
+            try
+            {
+                ErrorValidation.Visibility = Visibility.Collapsed;
+
+                context.reservations.Update(ReservationData);
+                context.SaveChanges();
+
+                //SuccessfulMessage.Visibility = Visibility.Visible;
+                Hotel.UI.Report.Report message = new Hotel.UI.Report.Report("\"Updates item from database successfully. For the UNIQUE USER ID of: ", primartyID);
+                message.ShowDialog();
+            }
+            catch
+            {
+               // ErrorMessage.Visibility = Visibility.Visible;
+                Hotel.UI.Report.Report message = new Hotel.UI.Report.Report("\"Updates item from database successfully. For the UNIQUE USER ID of: ", primartyID);
+                message.ShowDialog();
+
             }
 
 
@@ -432,48 +473,56 @@ namespace Hotel.UI.FrontEnd
             }
         }
 
+        private string roomNumber, roomFloor;
+
         private void roomTypeComb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (roomTypeComb.SelectedItem.Equals("Single"))
-            {
-                totalAmount = 149;
-                floorCombo.SelectedItem = "1";
-            }
-            else if (roomTypeComb.SelectedItem.Equals("Double"))
-            {
-                totalAmount = 299;
-                floorCombo.SelectedItem = "2";
-            }
-            else if (roomTypeComb.SelectedItem.Equals("Twin"))
-            {
-                totalAmount = 349;
-                floorCombo.SelectedItem = "3";
-            }
-            else if (roomTypeComb.SelectedItem.Equals("Duplex"))
-            {
-                totalAmount = 399;
-                floorCombo.SelectedItem = "4";
-            }
 
-            // select number of guests
-
-            bool temp = int.TryParse(guestsCombo.SelectedValue.ToString(), out int selectedGuest);
-            string selected;
-
-            if (!temp)
+            if(roomTypeComb.SelectedItem != null)
             {
-                if (GuestValidationError != null)
-                    GuestValidationError.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                selected = guestsCombo.SelectedValue?.ToString() ?? "";
-                selectedGuest = Convert.ToInt32(selected);
-                if (selectedGuest >= 3)
+
+                if (roomTypeComb.SelectedItem.Equals("Single"))
                 {
-                    totalAmount += (selectedGuest * 5);
+                    totalAmount = 149;
+                    floorCombo.SelectedItem = "1";
+                }
+                else if (roomTypeComb.SelectedItem.Equals("Double"))
+                {
+                    totalAmount = 299;
+                    floorCombo.SelectedItem = "2";
+                }
+                else if (roomTypeComb.SelectedItem.Equals("Twin"))
+                {
+                    totalAmount = 349;
+                    floorCombo.SelectedItem = "3";
+                }
+                else if (roomTypeComb.SelectedItem.Equals("Duplex"))
+                {
+                    totalAmount = 399;
+                    floorCombo.SelectedItem = "4";
+                }
+
+                // select number of guests
+
+                bool temp = int.TryParse(guestsCombo.SelectedValue.ToString(), out int selectedGuest);
+                string selected;
+
+                if (!temp)
+                {
+                    if (GuestValidationError != null)
+                        GuestValidationError.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    selected = guestsCombo.SelectedValue?.ToString() ?? "";
+                    selectedGuest = Convert.ToInt32(selected);
+                    if (selectedGuest >= 3)
+                    {
+                        totalAmount += (selectedGuest * 5);
+                    }
                 }
             }
+
         }
 
         private void FinalizePayment_Click(object sender, RoutedEventArgs e)
@@ -486,19 +535,23 @@ namespace Hotel.UI.FrontEnd
             FinalizePayment finalizebil = new FinalizePayment();
             finalizebil.totalAmountFromFrontend = totalAmount;
             finalizebil.foodBill = foodBill;
+            
             if (taskFinder)
             {
-                finalizebil.PaymentTypeComb.SelectedItem = FPayment.Replace(" ", string.Empty);
-                finalizebil.phoneNComboBox.Text = FCnumber;
-                finalizebil.MonthCombo.SelectedItem = FcardExpOne;
-                finalizebil.yearCombo.SelectedItem = FcardExpTwo;
-                finalizebil.CVCText.Text = FCardCVC;
+                finalizebil.PaymentType = ReservationData.payment_type.Trim().ToString();
+                finalizebil.phoneNComboBox.Text = ReservationData.card_number;
+                finalizebil.MonthCombo.SelectedItem = ReservationData.card_exp.Trim().Split('/')[0].ToString();
+
+                finalizebil.yearCombo.SelectedItem = ReservationData.card_exp.Trim().Split('/')[1].ToString();
+                finalizebil.CVCText.Text = ReservationData.card_cvc.Trim().ToString();
+                finalizebil.foodBill_Price.Content = ReservationData.food_bill; 
             }
             finalizebil.LoadDetailsFromFrontEnd();
             finalizebil.ShowDialog();
 
             finalizedTotalAmount = finalizebil.FinalTotalFinalized;
             paymentType = finalizebil.PaymentType.ToString();
+
             paymentCardNumber = finalizebil.PaymentCardNumber;
             MM_YY_Of_Card = finalizebil.MM_YY_Of_Card1;
             CVC_Of_Card = finalizebil.CVC_Of_Card1;
@@ -513,24 +566,51 @@ namespace Hotel.UI.FrontEnd
 
         private void UpdateReservationBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            if (formValidation())
+            {
+                UpdatetData();
+            }
         }
 
 
         private void deleteReservation_Click(object sender, RoutedEventArgs e)
         {
+            
+                try
+                {
+                    context.reservations.Remove(ReservationData);
+                    context.SaveChanges();
+                                       
+                    Hotel.UI.Report.Report message = new Hotel.UI.Report.Report("\"Deleted item from database successfully. For the UNIQUE USER ID of: ", primartyID);
+                    message.ShowDialog();
+                }
+                catch
+                    {
+                    Hotel.UI.Report.Report message = new Hotel.UI.Report.Report("\"Can't deleted item from database. For the UNIQUE USER ID of: ", primartyID);
+                     message.ShowDialog();
+
+                }   
+
+
 
         }
 
 
         private void editReservation_Click(object sender, RoutedEventArgs e)
         {
+            editReservationGrid.Visibility = Visibility.Visible;
+
+            foreach(reservation reservationDetails in  Lists_of_reservation.ToList())
+            {
+                comboBoxEditReservation.Items.Add(reservationDetails.zip_code.ToString() + " | " + reservationDetails.first_name.ToString() +  " " + reservationDetails.last_name.ToString() +  " | " + reservationDetails.phone_number);
+            }
 
         }
 
         private void addReservation_Click(object sender, RoutedEventArgs e)
         {
-
+            editReservationGrid.Visibility = Visibility.Hidden;
+            loadControls();
         }
 
 
@@ -594,7 +674,7 @@ namespace Hotel.UI.FrontEnd
 
         private void stateComb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            
         }
 
         private List<reservation> SearchByValue(string value)
@@ -643,6 +723,51 @@ namespace Hotel.UI.FrontEnd
                 viewDetailsOfSeachInGrid.Visibility = Visibility.Hidden;
 
             }
+        }
+
+        private void comboBoxEditReservation_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            taskFinder = true;
+
+            string Fname = ((ComboBox)sender).SelectedItem.ToString().Split('|')[1].ToString().Split(" ")[1].ToString();
+            string Lname = ((ComboBox)sender).SelectedItem.ToString().Split('|')[1].ToString().Split(" ")[2].ToString();
+
+            ReservationData = context.reservations.FirstOrDefault(s => s.first_name == Fname && s.last_name == Lname);
+
+            primartyID = ReservationData.Id;
+
+
+            reservationColumn1.DataContext = ReservationData;
+            reservationColumn2.DataContext = ReservationData;
+
+             var birthdate = ReservationData?.birth_day.Split("-");
+
+            Month_combo.SelectedItem = birthdate[0].Trim().ToString();
+            Day_combo.SelectedItem = birthdate[1].Trim().ToString();
+
+            Year_txt.Text = birthdate[2].Trim().ToString();
+            stateComb.SelectedItem = ReservationData.state.Trim().ToString();
+            roomTypeComb.SelectedItem = ReservationData.room_type.Trim().ToString();
+            guestsCombo.SelectedItem = ReservationData.number_guest;
+
+            floorCombo.SelectedItem = ReservationData.room_floor.Trim().ToString();
+            roomNumberComb.SelectedItem = ReservationData.room_number.Trim().ToString();
+
+            roomFloor = ReservationData.room_floor.Trim();
+            roomNumber = ReservationData.room_number.Trim();
+
+            breakfast = ReservationData.break_fast;
+            lunch = ReservationData.lunch;
+            dinner = ReservationData.dinner;
+
+            towel= ReservationData.towel;
+            cleaning = ReservationData.cleaning;
+            surprise = ReservationData.s_surprise;
+
+            
+
+
+
         }
 
 
@@ -733,6 +858,21 @@ namespace Hotel.UI.FrontEnd
             }
         }
 
+        private void roomNumberComb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(((ComboBox)sender).SelectedIndex >= 0)
+            {
+                roomNumber = ((ComboBox)sender).SelectedItem.ToString();
+            }
+        }
+
+        private void floorCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (((ComboBox)sender).SelectedIndex >= 0)
+            {
+                roomFloor = ((ComboBox)sender).SelectedItem.ToString();
+            }
+        }
 
         private void TextValueChanges(object sender, TextChangedEventArgs e)
         {

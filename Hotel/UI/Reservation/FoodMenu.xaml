@@ -90,7 +90,7 @@
             <!-- end Food Selection Column -->
 
             <!-- Start Special needs section-->
-            <StackPanel Grid.Column="1" Margin="0,0,10,0" Background="#FFE9F2E4" Height="429" VerticalAlignment="Top">
+            <StackPanel Grid.Column="1" Margin="0,0,10,0" Background="#FFE9F2E4" Height="429" VerticalAlignment="Top" x:Name="SpecialNeedsGrid" >
                 <Label FontSize="15" >Special Needs</Label>
 
                 <WrapPanel Margin="40 20">
