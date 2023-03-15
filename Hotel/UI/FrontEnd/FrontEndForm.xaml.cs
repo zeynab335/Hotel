@@ -88,7 +88,7 @@ namespace Hotel.UI.FrontEnd
             context = new Hotel.Context.Context();
             Lists_of_reservation = context.reservations.ToList();
 
-            AllReservation_DataGrid.ItemsSource = Lists_of_reservation;
+            //AllReservation_DataGrid.ItemsSource = Lists_of_reservation;
 
 
             loadControls();
@@ -210,6 +210,8 @@ namespace Hotel.UI.FrontEnd
         {
             AllReservation_DataGrid.Visibility = Visibility.Visible;
 
+            AllReservation_DataGrid.ItemsSource = context.reservations.ToList();
+
             // hide all taps
             Universal_Grid.Visibility = Visibility.Collapsed;
             Room_Availability_Grid.Visibility = Visibility.Collapsed;
@@ -251,7 +253,7 @@ namespace Hotel.UI.FrontEnd
 
             // Load Reserved List
 
-            string Reserved_List_query = "Select * from reservation where check_in = '" + "True" + "';";
+            string Reserved_List_query = "Select * from reservation where check_in = '" + "False" + "';";
             var Reservation_List_item = context.reservations.FromSqlRaw(Reserved_List_query).ToList();
             Reservation_List.ItemsSource = Reservation_List_item;
 
@@ -395,10 +397,11 @@ namespace Hotel.UI.FrontEnd
                 ErrorValidation.Visibility= Visibility.Collapsed;
 
                 context.reservations.Add(ReservationData);
+                primartyID = ReservationData.Id;
                 context.SaveChanges();
 
                 // SuccessfulMessage.Visibility = Visibility.Visible;
-                Hotel.UI.Report.Report message = new Hotel.UI.Report.Report("\"Inserted item from database successfully. For the UNIQUE USER ID of: ", primartyID);
+                Hotel.UI.Report.Report message = new Hotel.UI.Report.Report("\"Inserted item from database successfully.  ", primartyID , true);
                 message.ShowDialog();
             
 
@@ -406,7 +409,7 @@ namespace Hotel.UI.FrontEnd
             catch
             {
                 //ErrorMessage.Visibility = Visibility.Visible;
-                Hotel.UI.Report.Report message = new Hotel.UI.Report.Report("\"Inserted item from database successfully. For the UNIQUE USER ID of: ", primartyID);
+                Hotel.UI.Report.Report message = new Hotel.UI.Report.Report("\"Failed when Insert New Rservation  ", primartyID  , true);
                 message.ShowDialog();
             }
 
@@ -425,13 +428,17 @@ namespace Hotel.UI.FrontEnd
                 context.SaveChanges();
 
                 //SuccessfulMessage.Visibility = Visibility.Visible;
-                Hotel.UI.Report.Report message = new Hotel.UI.Report.Report("\"Updates item from database successfully. For the UNIQUE USER ID of: ", primartyID);
+                Hotel.UI.Report.Report message = new Hotel.UI.Report.Report("\"Updates item from database successfully. For the UNIQUE USER ID of: ", primartyID  , true);
                 message.ShowDialog();
+                editReservationGrid.Visibility = Visibility.Hidden;
+                loadControls();
+
             }
+
             catch
             {
                // ErrorMessage.Visibility = Visibility.Visible;
-                Hotel.UI.Report.Report message = new Hotel.UI.Report.Report("\"Updates item from database successfully. For the UNIQUE USER ID of: ", primartyID);
+                Hotel.UI.Report.Report message = new Hotel.UI.Report.Report("\"Failed when Update Rservation With UNIQUE USER ID of: ", primartyID , true);
                 message.ShowDialog();
 
             }
@@ -520,6 +527,7 @@ namespace Hotel.UI.FrontEnd
                     {
                         totalAmount += (selectedGuest * 5);
                     }
+                    
                 }
             }
 
@@ -581,12 +589,15 @@ namespace Hotel.UI.FrontEnd
                     context.reservations.Remove(ReservationData);
                     context.SaveChanges();
                                        
-                    Hotel.UI.Report.Report message = new Hotel.UI.Report.Report("\"Deleted item from database successfully. For the UNIQUE USER ID of: ", primartyID);
+                    Hotel.UI.Report.Report message = new Hotel.UI.Report.Report("\"Deleted item from database successfully. For the UNIQUE USER ID of: ", primartyID, true);
                     message.ShowDialog();
+                    editReservationGrid.Visibility = Visibility.Hidden;
+                    loadControls();
+
                 }
                 catch
                     {
-                    Hotel.UI.Report.Report message = new Hotel.UI.Report.Report("\"Can't deleted item from database. For the UNIQUE USER ID of: ", primartyID);
+                    Hotel.UI.Report.Report message = new Hotel.UI.Report.Report("\"Failed when Delete Rservation. With the UNIQUE USER ID of: ", primartyID , true);
                      message.ShowDialog();
 
                 }   

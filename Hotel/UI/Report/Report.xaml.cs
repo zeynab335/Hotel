@@ -19,15 +19,25 @@ namespace Hotel.UI.Report
     /// </summary>
     public partial class Report : Window
     {
-        public Report(string _message , int _id )
+        public Report(string _message , int _id  , bool Error )
         {
-            id= _id;
+            id= _id == 0 ? "new User With Unique ID " : _id.ToString();
             message= _message;
             InitializeComponent();
             reportGrid.DataContext= this;
+
+            if (!Error)
+            {
+                reportGrid.Background = Brushes.Red;
+            }
+            else
+            {
+                reportGrid.Background = (new BrushConverter().ConvertFrom("#FF36870C")) as Brush;
+
+            }
         }
 
-        public int id { get; set; }
+        public string id { get; set; }
 
         public string message { get; set; }
 

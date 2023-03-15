@@ -161,13 +161,16 @@ namespace Hotel.FrontEnd.Reservation
                 KitchenContext.SaveChanges();
                 ReloadList();
 
-                Report report= new Report("\"Entry successfully updated into database. For the UNIQUE USER ID of: ", selectedList.Id);
+                Report report= new Report("\"Entry successfully updated into database. For the UNIQUE USER ID of: ", selectedList.Id , true);
                 report.ShowDialog();
+
+                
 
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
+
 
             }
 
