@@ -10,7 +10,7 @@
 xmlns:local="clr-namespace:Hotel.Login"
         mc:Ignorable="d"
         Title="Login" Height="400
-        " Width="688">
+        " Width="688" WindowStartupLocation="CenterScreen">
     
     <Grid Margin="-16,-2,0,0">
         <Border

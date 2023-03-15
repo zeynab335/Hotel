@@ -7,7 +7,7 @@
         ResizeMode="NoResize"
         xmlns:local="clr-namespace:HotelManagment"
         mc:Ignorable="d"
-        Title="Licence" Height="257" Width="415">
+        Title="Licence" Height="257" Width="415" WindowStartupLocation="CenterScreen">
 
 
     <Grid Background="#FFDDE1E1">
